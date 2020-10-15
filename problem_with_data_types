@@ -1,0 +1,35 @@
+bin_edges =[10,17,38,146,9767]
+
+bin_names= ['Low','Medium','Moderately High','Very High']
+
+df['vote_count'] = pd.cut(df['vote_average'], bin_edges, labels=bin_names)
+
+df.head()
+
+#returns this error
+#TypeError: '<' not supported between instances of 'int' and 'str'
+#trying to get these bin edges to work but the data types are not lining up for some reason
+
+
+df['vote_count']= df['vote_count'].astype(int)
+
+df['vote_average']= df['vote_average'].astype(int)
+
+#returns this error 
+#   ValueError: invalid literal for int() with base 10: 'Very High
+
+#Then i tried 
+df['vote_count'] = df['vote_count'].str.extract('(\\d+)').astype(int)
+#and got this error 
+#AttributeError: Can only use .str accessor with string values!
+
+
+#Then I went and checked the data types as suggested to me with 
+df.dtypes
+
+#Said vote_count was a float
+#Then entered in
+df.astype(int)
+#When I ran df.dtypes it said vote_count was an int but then when I run 
+df['vote_count'].describe()
+#It says it is a float again. 
